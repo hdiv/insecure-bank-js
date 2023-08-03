@@ -1,17 +1,19 @@
 # Insecure Bank (node)
+
 ![Insecure-Bank](https://hdivsecurity.com/img/bank.png)
+
 ## Running the application locally
 
-1. Clone the repository:
+1.  Clone the repository:
 
         $ git clone https://github.com/hdiv/insecure-bank-js.git
 
-2. Run the application using express:
+2.  Run the application using express:
 
-       $ npm install
-       $ npm run start
+    $ npm install
+    $ npm run start
 
-3. You can then access the bank application here: http://localhost:3000
+3.  You can then access the bank application here: http://localhost:3000
 
 ## Running with Docker
 
@@ -24,5 +26,6 @@ Run the insecure-bank application with Docker.
 Open the application in > http://localhost:3000
 
 ## Login credentials
-- Username: john
-- Password: test
+
+-   Username: john
+-   Password: test

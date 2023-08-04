@@ -16,7 +16,7 @@ const secretKey = '01234567'
 let checksum = null
 
 const getFileChecksum = (value) => {
-    const cipher = crypto.createCipheriv('bf-cbc', secretKey, secretKey)
+    const cipher = crypto.createCipheriv('des-cbc', secretKey, secretKey)
     let encrypted = cipher.update(value, 'utf-8', 'base64')
     encrypted += cipher.final('base64')
     return encrypted

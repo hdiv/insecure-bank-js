@@ -13,19 +13,28 @@ global.sequelize = new Sequelize('sqlite::memory:', {
     },
 })
 
-const statements = ['schema.sql', 'data.sql']
-    .map((file) => path.join(__dirname, 'sql', file))
-    .map((file) => fs.readFileSync(file, 'utf-8'))
-    .flatMap((sql) =>
-        sql
-            .split(';')
-            .map((sql) => sql.trim())
-            .filter((sql) => sql.length > 0)
-    )
-statements
-    .reduce((p, sql) => p.then(() => sequelize.query(sql)), Promise.resolve())
-    .then(() => console.log('Database created'))
-    .catch((e) => console.error(e))
+const createDb = async () => {
+    const t = await sequelize.transaction()
+    try {
+        const statements = ['schema.sql', 'data.sql']
+            .map((file) => path.join(__dirname, 'sql', file))
+            .map((file) => fs.readFileSync(file, 'utf-8'))
+            .flatMap((sql) =>
+                sql
+                    .split(';')
+                    .map((sql) => sql.trim())
+                    .filter((sql) => sql.length > 0)
+            )
+        for (let sql of statements) {
+            await sequelize.query(sql, { transaction: t })
+        }
+        await t.commit()
+    } catch (e) {
+        await t.rollback()
+        throw e
+    }
+}
+createDb().catch((e) => console.error(e))
 
 const loginRouter = require('./routes/login')
 const dashboardRouter = require('./routes/dashboard')

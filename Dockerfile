@@ -4,6 +4,8 @@ EXPOSE 3000
 
 ADD . .
 
-RUN npm install
+RUN npm instal
+
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
 CMD ["node", "./bin/www"]

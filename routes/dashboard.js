@@ -8,7 +8,7 @@ const multer = require('multer')
 const { findUsersByUsername } = require('../services/account')
 const { findCashAccountsByUsername } = require('../services/cashAccount')
 const { findCreditAccountsByUsername } = require('../services/creditAccount')
-const { load, save } = require('../services/storage')
+const { load, save, exists } = require('../services/storage')
 
 const upload = multer()
 const resources = path.join(__dirname, '..', 'resources')
@@ -64,8 +64,9 @@ router.get('/userDetail', async (req, res) => {
 
 router.get('/userDetail/avatar', (req, res) => {
     const image = req.query.image
+    const file = exists(image) ? load(image) : load('avatar.png')
     res.writeHead(200, [['Content-Type', 'image/png']])
-    res.end(load(image))
+    res.end(file)
 })
 
 const imageUpload = upload.fields([{ name: 'imageFile', maxCount: 1 }])

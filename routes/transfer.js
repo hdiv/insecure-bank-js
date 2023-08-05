@@ -89,13 +89,17 @@ router.post('/', async (req, res) => {
 router.post('/confirm', async (req, res) => {
     const accountType = req.cookies['accountType']
     const transfer = req.session.pendingTransfer
-    delete req.session.pendingTransfer
     const action = req.body.action
-    if (action === 'confirm') {
+    if (action === 'confirm' && transfer) {
+        delete req.session.pendingTransfer
         await transferConfirmation(req, res, transfer, accountType)
     } else {
-        res.redirect('/transfer')
+        res.redirect('/transfer/redirect/' + accountType)
     }
+})
+
+router.get('/redirect/:accountType', (req, res) => {
+    res.redirect('transfer')
 })
 
 module.exports = router

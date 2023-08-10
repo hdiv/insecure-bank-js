@@ -8,8 +8,8 @@
 
 2.  Run the application using express:
 
-    $ npm install
-    $ npm run start
+        $ npm install
+        $ npm run start
 
 3.  You can then access the bank application here: http://localhost:3000
 

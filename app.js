@@ -11,6 +11,7 @@ global.sequelize = new Sequelize('sqlite::memory:', {
     dialectOptions: {
         multipleStatements: true,
     },
+    logging: process.env.SEQUELIZE_LOGGING === '1' || false
 })
 
 const createDb = async () => {

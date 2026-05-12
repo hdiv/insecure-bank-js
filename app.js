@@ -7,7 +7,9 @@ const path = require('path')
 const hbs = require('hbs')
 const { Sequelize } = require('sequelize')
 
-global.sequelize = new Sequelize('sqlite::memory:', {
+global.sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: ':memory:',
     dialectOptions: {
         multipleStatements: true,
     },
